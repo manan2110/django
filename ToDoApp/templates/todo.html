@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <title>Manan |Todo App</title>
+  </head>
+  <body>
+    <div class = container-fluid>
+        <!-- As a link -->
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid" style="font-size:6em;">
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bag-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M8 1a2.5 2.5 0 0 0-2.5 2.5V4h5v-.5A2.5 2.5 0 0 0 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V5H2z"/>
+            <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+          </svg>
+    </div>
+    
+    <div class="container" style="display: inline;">      
+      <a class="navbar-brand" style = "font-size: 2.5em " href="/todo/">Todo-List</a>
+    </div>
+  </nav>
+
+    </div>
+    <div class="container-fluid my-4">
+        <ul class="list-group list-group-flush">
+            {% for todo_item in all_items %}
+            <li class="list-group-item my-1">{{ todo_item.content }}
+                <form style = "display: inline" action = "/deleteTodo/{{todo_item.id}}/" method = "post">{% csrf_token %}
+                    <button type="submit" class="btn btn-primary" style="margin-left:200px" value = "Delete">Delete</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+        
+        <form action = "/addTodo/" style = "display: inline" method = "post">{% csrf_token %}
+            <!-- <input type = "text" class="form-control" name = "content"/> -->
+            <div class="row g-3 align-items-center">
+            <div class="col-auto">
+                <input type="text"  class="form-control" name = "content" aria-describedby="passwordHelpInline">
+              </div>
+            
+              <div class="col-auto">
+              <button type="submit" class="btn btn-primary" value = "Add">Add</button>
+                </div>
+            </div>
+       
+            </form>
+
+          
+
+
+    </div>
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

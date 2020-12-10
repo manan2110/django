@@ -6,6 +6,8 @@
 
 <h1>Delete Post</h1>
 <br/><br/>
+{% if user.is_authenticated %}
+
 <h3> Delete : {{ post.title }}</h3>
 <br/>
 <div class = "form-group">
@@ -13,7 +15,17 @@
         {% csrf_token %}
        <strong> Are you sure ? </strong><br/><br/>
         <button class = "btn btn-primary">Delete Post!</button>
+        <a href= "{% url 'home' %}" class="btn btn-primary">Back</a>
+    
     </form>
 </div>
+
+{% else %}
+
+    <div class="alert alert-warning" role="alert">
+    Please Login to Delete Post !
+    </div>
+
+{% endif %}
 
  {% endblock %}

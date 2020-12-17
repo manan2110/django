@@ -18,6 +18,11 @@
     </form>
 </div>
 
+<script>
+    var name = "{{ user.id }}";
+    document.getElementById("abc").value = name;
+</script>
+
 {% else %}
     <div class="alert alert-warning" role="alert">
     Please Login to Add Post !

@@ -22,4 +22,21 @@
 <br/><br/>
 <a href= "{% url 'home' %}" class="btn btn-primary">Back</a>
 
+{% comment %} <br/><br/>
+<hr>
+<br/>
+<form action = "{% url like_post post.pk %}" method = "POST" >
+{% csrf_token %}
+    <button type = "sumbit" , name="post_id" , value = "{{ post.id }}", class ="btn btn-primary btn-sm">Like</button>
+</form>  {% endcomment %}
+<br/><br/>
+<hr>
+<br/>
+<form action = "{% url like_post post.pk %}" method = "POST" >
+{% csrf_token %}
+    <button type = "sumbit" , name="post_id" , value = "{{ post.id }}", class ="btn btn-primary btn-sm">Like</button>
+</form>
+
+{{ total_likes }} LIKES
+
  {% endblock %}

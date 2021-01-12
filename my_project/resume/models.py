@@ -14,7 +14,8 @@ class Resume(models.Model):
     GitHub = models.CharField(max_length=30)
     Languages = models.CharField(max_length=30)
 
-class Form(models.Model):
+class Contact(models.Model):
+    sno = models.AutoField(primary_key=True)
     your_name = models.CharField(max_length=20)
     your_email = models.CharField(max_length = 20)
     your_subject = models.CharField(max_length=20)

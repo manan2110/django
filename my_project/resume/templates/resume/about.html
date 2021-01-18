@@ -1,4 +1,6 @@
+
 {% extends 'resume/base_2.html' %}
+{% load static %}
 {% block title %} | About
 {% endblock title %} | About
 {% block content %}
@@ -15,7 +17,7 @@
             <div class="col-12 col-lg-5 col-xl-6">
                 <div class="row">
                     <div class="col-12">
-                        <h3 class="text-uppercase custom-title mb-0 ft-wt-600">personal infos</h3>
+                        <h3 class="text-uppercase custom-title mb-0 ft-wt-600">personal Information</h3>
                     </div>
                     <div class="col-12 d-block d-sm-none">
                         <img src="http://via.placeholder.com/300x300.jpg" class="img-fluid main-img-mobile" alt="my picture" />
@@ -39,7 +41,7 @@
                         </ul>
                     </div>
                     <div class="col-12 mt-3">
-                        <a href="about.html" class="btn btn-download">Download CV</a>
+                        <a href="{% static 'Profile.pdf' %}" download = "Manan's Profile"  class="btn btn-download"> Download CV</a>
                     </div>
                 </div>
             </div>

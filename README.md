@@ -9,3 +9,4 @@ This is a repo for some django projects.
 - **ToDoApp**: This is a ToDoApp made using basic django.
 - **lead_mananger_react_django** : This is a django webapp for managing leads using django.(In Progress)
 - **Hello** : This is a django webapp for a ice-cream selling store.(In Progress) 
+- **myproject_rest_django** : It is a basic use of rest api with django.(In Progress)

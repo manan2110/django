@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
@@ -6,13 +6,69 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from rest_framework import generics, mixins
+from rest_framework import generics, mixins, viewsets
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from .models import *
 from .serializers import *
 
 # Create your views here.
+
+# Viewsets
+
+
+# class ArticleViewset(viewsets.ViewSet):
+
+#     def list(self, request):
+#         articles = Article.objects.all()
+#         serializer = ArticleSerializer(articles, many=True)
+#         # return JsonResponse(serializer.data, safe=False)
+#         return Response(serializer.data)
+
+#     def retrieve(self, request, pk=None):
+#         queryset = Article.objects.all()
+#         article = get_object_or_404(queryset, id=pk)
+#         serializer = ArticleSerializer(article)
+#         return Response(serializer.data)
+
+#     def create(self, request):
+#         # data = JSONParser().parse(request)
+#         # serializer = ArticleSerializer(data=data)
+#         serializer = ArticleSerializer(data=request.data)
+
+#         if serializer.is_valid():
+#             serializer.save()
+#             # return JsonResponse(serializer.data, status=201)
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         # return JsonResponse(serializer.errors, status=400)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#     def update(self, request, pk=None):
+#         article = Article.objects.get(pk=pk)
+#         # data = JSONParser().parse(request)
+#         serializer = ArticleSerializer(article, data=request.data)
+
+#         if serializer.is_valid():
+#             serializer.save()
+#             # return JsonResponse(serializer.data)
+#             return Response(serializer.data)
+#         # return JsonResponse(serializer.errors, status=400)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# Generic ViewSets
+
+
+# class ArticleViewset(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.RetrieveModelMixin):
+#     serializer_class = ArticleSerializer
+#     queryset = Article.objects.all()
+
+
+# Model ViewSet
+class ArticleViewset(viewsets.ModelViewSet):
+    serializer_class = ArticleSerializer
+    queryset = Article.objects.all()
+
 
 # generic views
 

@@ -11,6 +11,14 @@ from rest_framework.authentication import SessionAuthentication, TokenAuthentica
 from rest_framework.permissions import IsAuthenticated
 from .models import *
 from .serializers import *
+import urllib.request
+import json
+
+
+def get_location():
+    with urllib.request.urlopen("https://geolocation-db.com/json") as url:
+        data = json.loads(url.read().decode())
+    return data
 
 # Create your views here.
 

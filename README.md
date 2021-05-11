@@ -10,3 +10,4 @@ This is a repo for some django projects.
 - **lead_mananger_react_django** : This is a django webapp for managing leads using django.(In Progress)
 - **Hello** : This is a django webapp for a ice-cream selling store.(In Progress) 
 - **myproject_rest_django** : It is a basic use of rest api with django which includes Serializer , Modal Serializer , Function Based API Views,api_view() Decorator, Class Based API Views, Generic Views & Mixins, Authentication , Viewsets & Routers , Generic Viewsets and Modal Viewsets​.
+- **customUser** : This is to learn the use of Abstract user in django.

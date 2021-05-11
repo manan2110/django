@@ -3,9 +3,10 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
+
 class CustomUser(AbstractUser):
     Roles = (
-        ('A','Agent'),
-        ('O','Office'),
+        ('A', 'Agent'),
+        ('O', 'Office'),
     )
-    role = models.CharField(max_length = 1 , choices = Roles)
+    role = models.CharField(max_length=1, choices=Roles)

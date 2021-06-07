@@ -11,6 +11,9 @@ from .serializers import TaskSerailzer
 
 @api_view(['GET'])
 def apiOverview(request):
+    # apis = ['/task-list/', '/task-detail/<str:pk>',
+    #         '/task-update/<str:pk>', '/task-delete/<str:pk>/']
+
     api_urls = {
         'List': '/task-list/',
         'Detail View': '/task-detail/<str:pk>',

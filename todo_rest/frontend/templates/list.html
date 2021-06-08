@@ -118,6 +118,7 @@
         }
         const csrftoken = getCookie('csrftoken');
 
+        var activeItem = null
 
         buildList()
 
@@ -147,6 +148,15 @@
                         `
                         wrapper.innerHTML += item
                     }
+
+                    for (var i in list) {
+                        var editBtn = document.getElementsByClassName('edit')[i]
+                        editBtn.addEventListener('click', (function (item) {
+                            return function () {
+                                editTask(item)
+                            }
+                        })(list[i]))
+                    }
                 })
         }
 
@@ -155,6 +165,11 @@
             e.preventDefault()
             console.log('Form Submitted')
             var url = 'http://127.0.0.1:8000/api/task-create/'
+            if (activeItem != null) {
+                var url = `http://127.0.0.1:8000/api/task-update/${activeItem.id}/`
+                activeItem = null
+            }
+
             var title = document.getElementById('title').value
             fetch(url, {
                 method: 'POST',
@@ -168,8 +183,13 @@
                 buildList()
                 document.getElementById('form').reset()
             })
-
         })
+
+        function editTask(item) {
+            console.log('Item clicked: ', item)
+            activeItem = item
+            document.getElementById('title').value = activeItem.title
+        }
     </script>
 </body>
 

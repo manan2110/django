@@ -4,4 +4,5 @@ from django.shortcuts import render
 
 
 def list(request):
+    print(request.user.is_authenticated)
     return render(request, 'list.html')

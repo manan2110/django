@@ -3,8 +3,8 @@ from django.http import JsonResponse
 
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
-
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.test import force_authenticate
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 from .models import Task
@@ -12,6 +12,8 @@ from .serializers import TaskSerailzer
 # Create your views here.
 
 
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def apiOverview(request):
     # apis = ['/task-list/', '/task-detail/<str:pk>',
@@ -27,15 +29,20 @@ def apiOverview(request):
     return Response(api_urls)
 
 
-@authentication_classes([BasicAuthentication])
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def taskList(request):
+    print(request.user.is_authenticated)
+    user = request.user
+    force_authenticate(request, user=user, token=user.auth_token)
     tasks = Task.objects.all().order_by('-id')
     serializer = TaskSerailzer(tasks, many=True)
     return Response(serializer.data)
 
 
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def taskDetail(request, pk):
     tasks = Task.objects.get(id=pk)
@@ -43,6 +50,8 @@ def taskDetail(request, pk):
     return Response(serializer.data)
 
 
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def taskCreate(request):
     serializer = TaskSerailzer(data=request.data)
@@ -51,6 +60,8 @@ def taskCreate(request):
     return Response(serializer.data)
 
 
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def taskUpdate(request, pk):
     tasks = Task.objects.get(id=pk)

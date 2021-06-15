@@ -7,6 +7,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.test import force_authenticate
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 import requests
 from requests.auth import HTTPBasicAuth
 from django.contrib.sites.shortcuts import get_current_site
@@ -32,17 +33,23 @@ def taskList(request):
 
 
 @api_view(['GET'])
-@authentication_classes([SessionAuthentication, BasicAuthentication])
+@authentication_classes([SessionAuthentication, BasicAuthentication, TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def test(request):
     return Response(data='hi', status=status.HTTP_200_OK)
 
-# TODO : find a way to pass headers with passing creadentials
+# TODO : find a way to pass headers without passing creadentials
 
 
 @api_view(['GET'])
 def new(request):
-    print(request.user.is_authenticated)
+    # username = 'trying'
+    # password = 'trying@123'
+    mytoken = ''
+    # user = authenticate(username=username, password=password)
+    user = request.user
+    if user is not None:
+        mytoken = Token.objects.get(user=user).key
     d = requests.get('http://127.0.0.1:8000/auth/hi',
-                     auth=HTTPBasicAuth('trying', 'trying@123'))
+                     headers={'Authorization': 'Token {}'.format(mytoken)})
     return Response(data=d.json(), status=status.HTTP_200_OK)

@@ -8,11 +8,13 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.test import force_authenticate
 from rest_framework import status
 from rest_framework.authtoken.models import Token
+from rest_framework_simplejwt.authentication import JWTAuthentication
 import requests
 from requests.auth import HTTPBasicAuth
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+
 # Create your views here.
 
 
@@ -38,8 +40,6 @@ def taskList(request):
 def test(request):
     return Response(data='hi', status=status.HTTP_200_OK)
 
-# TODO : find a way to pass headers without passing creadentials
-
 
 @api_view(['GET'])
 def new(request):
@@ -52,4 +52,21 @@ def new(request):
         mytoken = Token.objects.get(user=user).key
     d = requests.get('http://127.0.0.1:8000/auth/hi',
                      headers={'Authorization': 'Token {}'.format(mytoken)})
+    return Response(data=d.json(), status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def test2(request):
+    return Response(data='hi', status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def new2(request):
+    username = 'trying'
+    password = 'trying@123'
+    mytoken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjIzODU0ODU5LCJqdGkiOiI0ZWQ4ZTgwMGQ3OWI0YjQxYTQzZWIzOWE5YjA1ZjhhOCIsInVzZXJfaWQiOjF9.r5mqscDuOco8fHQU6tPlVpkwgkA7MpndHGQ-4cPVp0Y'
+    d = requests.get('http://127.0.0.1:8000/auth/hi2',
+                     headers={'Authorization': 'Bearer {}'.format(mytoken)})
     return Response(data=d.json(), status=status.HTTP_200_OK)

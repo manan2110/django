@@ -14,6 +14,8 @@ from requests.auth import HTTPBasicAuth
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+import jwt
+import json
 
 # Create your views here.
 

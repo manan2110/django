@@ -61,6 +61,8 @@ def new(request):
 def test2(request):
     return Response(data='hi', status=status.HTTP_200_OK)
 
+# TODO: find a way to get token and then pass to the function
+
 
 @api_view(['GET'])
 def new2(request):

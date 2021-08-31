@@ -82,29 +82,16 @@ WSGI_APPLICATION = "astradb.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django_cassandra_engine",
-        "NAME": "test-database",
+        "NAME": "testdatabase",
         "TEST_NAME": "test-database",
-        "USER": config('username'),
-        "PASSWORD": config('password'),
-        "CLIENT_ID": config('client_id'),
-        "CLIENT_SECRET": config('client_secret'),
-        "TOKEN": config('token'),
-        "HOST": "127.0.0.1",
+        "USER": "token",
+        "PASSWORD": config("token"),
         "OPTIONS": {
-            "replication": {
-                "strategy_class": "SimpleStrategy",
-                "replication_factor": 1,
-            },
             "connection": {
-                "consistency": ConsistencyLevel.LOCAL_ONE,
-                "retry_connect": True
-                # + All connection options for cassandra.cluster.Cluster()
-            },
-            "session": {
-                "default_timeout": 10,
-                "default_fetch_size": 10000
-                # + All options for cassandra.cluster.Session()
-            },
+                "cloud": {
+                    "secure_connect_bundle": "astradb/secure-connect-test-database.zip"
+                },
+            }
         },
     }
 }
